@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="./css/style.css" type="text/css" rel="stylesheet" />
     <link href="./css/colors.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/overlay.css">
+    <link rel="stylesheet" href="./css/switch.css">
     <title>ToDo</title>
   </head>
   <body class="bg-(--main-color) relative">
@@ -33,10 +35,49 @@
     </div>
     <div class="fixed right-6 bottom-6">
     <button class="flex items-center justify-center bg-blue-500 text-white w-14 h-14 rounded-full text-3xl shadow-lg hover:bg-blue-600" id="addBtn">
-      <img class="h-5"  src="./assets/add.png">
+      <img class="h-5"  src="./assets/img/add.png">
     </button>
     </div>
-
+    <div class="overlayContainer">
+  <div class="modalContainer">
+    <div class="modalContent">
+      <!-- Task Logo -->
+      <div class="logo">
+        <img src="./assets/img/clover.png">
+        <span class="closebtn">&times;</span>
+      </div>
+      <!-- Task Info -->
+      <div class="taskContent">
+        <div class="custon-checkbox-content">
+          <label class="custom-checkbox">
+            <input type="checkbox">
+            <span></span>
+          </label>
+        </div>
+        <input type="text">
+      </div>
+      <!-- Task Important -->
+      <div class="taskImportant">
+        <h3>Mark As Important</h3>
+        <!-- From Uiverse.io by arghyaBiswasDev --> 
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+        </label>
+      </div>
+      <!-- Task details -->
+       <div class="taskDetails">
+        <h3>About:</h3>
+        <textarea></textarea>
+       </div>
+       <!-- Task Delete/Save Button -->
+       <div class="taskDeleteSave">
+        <button>Delete</button>
+        <button>Save</button>
+       </div>
+    </div>
+  </div>
+</div>
     <script type="module" src="./js/script.js" ></script>
   </body>
 </html>

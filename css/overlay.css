@@ -1,0 +1,160 @@
+.overlayContainer {
+  position: fixed;
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  align-items: center;    
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+.modalContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+  margin: 10px;
+  background-color: #ffcdd6;
+  border-radius: 5px;
+  box-shadow: 0 5 15px black;
+}
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 25px 5px 10px 5px;
+  margin: 5px;
+  gap: 10px;
+}
+.logo {
+  display: flex;  
+  position: relative;
+  justify-content: space-between;
+  align-items: center;         
+  height: 25px;
+  width: 100%;
+}
+.logo img {
+  width: 25px;
+  height: 100%;
+}
+.taskContent {
+  display: flex;
+  gap: 5px;
+  width: 100%;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+}
+.switch {
+  margin-right: 5px;
+}
+.custom-checkbox input {
+  display: none;
+}
+.custon-checkbox-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+}
+.custom-checkbox span {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 0 0 3px black;
+  position: relative;
+}
+.custom-checkbox input:checked + span {
+  background-color: var(--primary-color-font);
+}
+.custom-checkbox span::after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+.custom-checkbox input:checked + span::after {
+  display: block;
+  left: 9.47px;
+  top: 5px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.taskContent input[type="text"] {
+  height: 100%;
+  background-color: white;
+  max-height: 50px;
+  font-size: 18px;
+  height: 100%;
+  color: rgb(73, 73, 73);
+  flex: 1;
+  border: none;
+  border-radius: 10px;
+  padding-left: 5px;
+}
+.taskContent input[type="text"]:focus{
+  outline: none;
+}
+.taskImportant {
+  width: 100%;
+  height: 50px;
+  background: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.taskImportant h3 {
+  margin-left: 10px;
+  color: rgb(73, 73, 73);
+}
+.taskDetails {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.taskDetails h3 {
+  color: rgb(73, 73, 73);
+  font-weight: bold;
+}
+.taskDetails textarea {
+  background-color: white;
+  padding: 5px;
+  resize: none;
+  height: 150px; 
+}
+.taskDetails textarea:focus {
+  outline: none;
+}
+.taskDeleteSave {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  width: 100%;
+  height: 50px;
+}
+.taskDeleteSave button {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border: none;
+}
+.closebtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: bold;
+  position: absolute;
+  right: 0;
+  top: -30px;
+  color: var(--primary-color-font);
+}
