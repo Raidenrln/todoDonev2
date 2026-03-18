@@ -1,5 +1,6 @@
 import { todoData } from "./data/data.js";
 import { savingTask } from "./data/save.js";
+import { editModalShow } from "./modal/editModal.js";
 import { dupeFix } from "./utils/dupeFix.js";
 
 export function addTask() {
@@ -38,14 +39,15 @@ export function addTask() {
         id: taskid,
         text: targetTaskValue,
         isDone: false,
+        about: "",
+        important: false
       };
       todoData.push(todo);
       savingTask(taskid);
       targetTaskInput.disabled = true;
     } else {
-      TargetTaskSave.textContent = "Save";
-      targetTaskInput.disabled = false;
-      dupeFix(taskid);
+      const idFromAttribute = content.getAttribute("data-task");
+      editModalShow(idFromAttribute);
     }
   });
 }

@@ -9,3 +9,19 @@
   --shopping-color: #99E79B;
   --button-color: #0000FE;
 }
+.markImportant {
+  position: absolute;
+  right: 10px;
+  top: -5px;
+  justify-content: center;
+  align-items: center;
+  color: var(--primary-color-font);
+  font-weight: bold;
+  font-size: 36px;
+  
+}
+.custom-checkbox-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
