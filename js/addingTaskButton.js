@@ -14,12 +14,12 @@ export function addTask() {
   content.innerHTML = `
     <div class="custom-checkbox-content px-3">
       <label class="custom-checkbox flex items-center">
-        <input type="checkbox" class="w-5 h-5">
+        <input class="checkbox" type="checkbox" class="w-5 h-5">
         <span></span>
       </label>
     </div>
     <div class="flex-1 h-12">
-      <input class="w-full h-full outline-none" type="text" placeholder="Enter task...">
+      <input class="w-full h-full outline-none userInputValue" type="text" placeholder="Enter task...">
     </div>
     <div class="flex h-12.5 justify-center items-center">
       <button class="px-3 h-full save">Save</button>
