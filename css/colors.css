@@ -18,10 +18,23 @@
   color: var(--primary-color-font);
   font-weight: bold;
   font-size: 36px;
-  
+}
+.markImportantTask {
+  position: absolute;
+  right: 45px;
+  top: -5px;
+  justify-content: center;
+  align-items: center;
+  color: var(--primary-color-font);
+  font-weight: bold;
+  font-size: 36px;
 }
 .custom-checkbox-content {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.checkbox:checked ~ div .userInputValue {
+  text-decoration: line-through;
+  opacity: 0.6;
 }

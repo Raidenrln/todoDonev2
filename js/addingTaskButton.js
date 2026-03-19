@@ -1,7 +1,8 @@
 import { todoData } from "./data/data.js";
 import { savingTask } from "./data/save.js";
 import { editModalShow } from "./modal/editModal.js";
-import { dupeFix } from "./utils/dupeFix.js";
+// import { dupeFix } from "./utils/dupeFix.js";
+import { updateOneTask } from "./utils/update.js";
 
 export function addTask() {
   let todo = {};
@@ -29,10 +30,13 @@ export function addTask() {
 
   const targetTaskInput = content.querySelector("input[type='text']");
   const TargetTaskSave = content.querySelector(".save");
+  const targetCheckBox = content.querySelector(".checkbox");
 
+  targetCheckBox.disabled = true;
   TargetTaskSave.addEventListener("click", () => {
     const targetTaskValue = targetTaskInput.value;
-
+    targetCheckBox.disabled = false;
+    
     if (TargetTaskSave.textContent.includes("Save")) {
       TargetTaskSave.textContent = "Edit";
       todo = {
@@ -42,6 +46,12 @@ export function addTask() {
         about: "",
         important: false
       };
+    targetCheckBox.addEventListener("change", () => {
+      const idFromAttribute = content.getAttribute("data-task");
+      const taskIndex = todoData.findIndex(task => task.id == idFromAttribute);
+      todoData[taskIndex].isDone = targetCheckBox.checked;
+      updateOneTask(idFromAttribute);
+});
       todoData.push(todo);
       savingTask(taskid);
       targetTaskInput.disabled = true;

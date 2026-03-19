@@ -11,7 +11,6 @@ export function editButton(id) {
     targetInput.focus();
     targetInput.setSelectionRange(targetInput.value.length, targetInput.value.length);
     targetButton.textContent = "Save";
-
   } else {
     const targetValue = targetInput.value;
     todoData[taskDataTarget].text = targetValue;

@@ -6,9 +6,11 @@ import { editModalShow } from "../modal/editModal.js";
 export function loadTask() {
   const container = document.getElementById("task");
   container.innerHTML = "";
+
   todoData.forEach((a) => {
-    let todoHTML = `
-      <div data-task="${a.id}" class="flex items-center w-full h-12.5 taskContent bg-white rounded-lg overflow-hidden">
+    const todoHTML = `
+      <div data-task="${a.id}" class="relative flex items-center w-full h-12.5 taskContent bg-white rounded-lg overflow-hidden">
+        <span class="markImportantTask">${a.important ? "!" : ""}</span>
         <div class="custom-checkbox-content px-3">
           <label class="custom-checkbox flex items-center">
             <input class="checkbox" type="checkbox" class="w-5 h-5" ${a.isDone ? "checked" : ""}>
@@ -23,22 +25,27 @@ export function loadTask() {
         </div>
       </div>
     `;
-    container.insertAdjacentHTML("beforeend", todoHTML);
+
+    container.insertAdjacentHTML("beforeend", todoHTML);    
 
     const content = container.querySelector(`[data-task="${a.id}"]`);
     const edit = content.querySelector(".edit");
     const checkbox = content.querySelector(".checkbox");
+    const inputValue = content.querySelector(".userInputValue");
+
+    inputValue.style.textDecoration = checkbox.checked ? "line-through" : "none";
 
     checkbox.addEventListener("change", () => {
-      const taskIndex = todoData.findIndex(task => task.id == a.id)
+      const taskIndex = todoData.findIndex(task => task.id == a.id);
+      inputValue.style.textDecoration = checkbox.checked ? "line-through" : "none";
       todoData[taskIndex].isDone = checkbox.checked;
       console.log(todoData[taskIndex].isDone);
-      savingTask(a.id)
+      savingTask(a.id);
     });
 
     edit.addEventListener("click", () => {
       // editButton(a.id)
       editModalShow(a.id);
-  });
+    });
   });
 }
