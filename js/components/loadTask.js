@@ -39,7 +39,7 @@ export function loadTask() {
       const taskIndex = todoData.findIndex(task => task.id == a.id);
       inputValue.style.textDecoration = checkbox.checked ? "line-through" : "none";
       todoData[taskIndex].isDone = checkbox.checked;
-      console.log(todoData[taskIndex].isDone);
+      console.log(todoData[taskIndex]);
       savingTask(a.id);
     });
 

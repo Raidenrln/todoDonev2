@@ -1,3 +1,4 @@
+import { Task } from "../class/todoClass.js";
 import { todoData } from "../data/data.js";
 import { savingTask } from "../data/save.js";
 import { updateOneTask } from "../utils/update.js";
@@ -6,9 +7,11 @@ import { deleteTask } from "./delete.js";
 export function editModalShow(id) {
   const container = document.querySelector(".overlayContainer");
   const targetTaskId = todoData.findIndex(task => task.id == id);
+  const taskData = new Task(todoData[targetTaskId]);
+  console.log(taskData);
 
   const taskHTML = `
-    <div class="modalContainer" data-task="${todoData[targetTaskId].id}">
+    <div class="modalContainer" data-task="${taskData.getTaskID()}">
       <div class="modalContent">
         <div class="logo">
           <img src="./assets/img/clover.png">
@@ -16,27 +19,27 @@ export function editModalShow(id) {
         </div>
 
         <div class="relative taskContent flex flex-row items-center justify-center">
-          <span class="markImportant">${todoData[targetTaskId].important ? "!" : ""}</span>
+          <span class="markImportant">${taskData.getImportantValue() ? "!" : ""}</span>
           <div class="custom-checkbox-content">
             <label class="custom-checkbox flex items-center justify-center">
-              <input class="checkbox" type="checkbox" ${todoData[targetTaskId].isDone ? "checked" : ""}>
+              <input class="checkbox" type="checkbox" ${taskData.getCheckboxValue() ? "checked" : ""}>
               <span></span>
             </label>
           </div>
-          <input class="userInputValue" type="text" value="${todoData[targetTaskId].text}">
+          <input class="userInputValue" type="text" value="${taskData.getInputValue()}">
         </div>
 
         <div class="taskImportant">
           <h3>Mark As Important</h3>
           <label class="switch">
-            <input class="importantSwitch" type="checkbox" ${todoData[targetTaskId].important ? "checked" : ""}>
+            <input class="importantSwitch" type="checkbox" ${taskData.getImportantValue() ? "checked" : ""}>
             <span class="slider"></span>
           </label>
         </div>
 
         <div class="taskDetails">
           <h3>About:</h3>
-          <textarea class="textAreaValue">${todoData[targetTaskId].about}</textarea>
+          <textarea class="textAreaValue">${taskData.getInputAboutValue()}</textarea>
         </div>
 
         <div class="taskDeleteSave">
@@ -71,13 +74,12 @@ export function editModalShow(id) {
     const mark = taskContent.querySelector(".markImportant");
     if (mark) {
       mark.textContent = ImportantBtn.checked ? "!" : "";
-      todoData[targetTaskId].important = ImportantBtn.checked;
       updateOneTask(currentTaskId);
     }
   });
 
   saveBtn.addEventListener("click", () => {
-    todoData[targetTaskId].text = inputValue.value;
+    todoData[targetTaskId].texy = inputValue.value;
     todoData[targetTaskId].about = textArea.value;
     todoData[targetTaskId].isDone = checkboxBtn.checked;
     todoData[targetTaskId].important = ImportantBtn.checked;

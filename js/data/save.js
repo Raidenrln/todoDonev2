@@ -4,6 +4,3 @@ export function savingTask(uuid) {
     localStorage.setItem("todo", JSON.stringify(todoData))
   }
 }
-export function reWriteSave(id) {
-  
-}
