@@ -1,13 +1,12 @@
-import { todoData } from "../data/data.js";
-import { savingTask } from "../data/save.js";
 import { editModalShow } from "../modal/editModal.js";
-// import { editButton } from "./edit.js";
-
+import { todoManager } from "../class/todoManager.js";
+import { Task } from "../class/todoClass.js";
 export function loadTask() {
   const container = document.getElementById("task");
+
   container.innerHTML = "";
 
-  todoData.forEach((a) => {
+  todoManager.tasks.forEach((a) => {
     const todoHTML = `
       <div data-task="${a.id}" class="relative flex items-center w-full h-12.5 taskContent bg-white rounded-lg overflow-hidden">
         <span class="markImportantTask">${a.important ? "!" : ""}</span>
@@ -32,20 +31,22 @@ export function loadTask() {
     const edit = content.querySelector(".edit");
     const checkbox = content.querySelector(".checkbox");
     const inputValue = content.querySelector(".userInputValue");
+    const taskId = todoManager.tasks.find(task => task.id == a.id);
+    const task = new Task(taskId)
 
     inputValue.style.textDecoration = checkbox.checked ? "line-through" : "none";
 
     checkbox.addEventListener("change", () => {
-      const taskIndex = todoData.findIndex(task => task.id == a.id);
       inputValue.style.textDecoration = checkbox.checked ? "line-through" : "none";
-      todoData[taskIndex].isDone = checkbox.checked;
-      console.log(todoData[taskIndex]);
-      savingTask(a.id);
+      task.isDone = checkbox.checked;
+      todoManager.updateTask(task.id, {
+        isDone: checkbox.checked
+      });
+      
     });
 
     edit.addEventListener("click", () => {
-      // editButton(a.id)
-      editModalShow(a.id);
+      editModalShow(task.id);
     });
   });
 }

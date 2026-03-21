@@ -1,18 +1,19 @@
-import { todoData } from "../data/data.js";
+import { Task } from "../class/todoClass.js";
+import { todoManager } from "../class/todoManager.js";
 export function updateOneTask(id) {
-  const taskData = todoData.findIndex(task => task.id == id);
-  const taskId = document.querySelector(`[data-task="${id}"]`)
+  const taskData = todoManager.tasks.find(task => task.id == id);
+  const task = new Task(taskData)
+  const taskId = document.querySelector(`[data-task="${task.getTaskID()}"]`);
   
   const inputCheckBox = taskId.querySelector(".checkbox");
   const inputValue = taskId.querySelector(".userInputValue");
-  inputCheckBox.checked = todoData[taskData].isDone;
-  inputValue.style.textDecoration = inputCheckBox.checked ? "line-through" : "none";
-  console.log(todoData[taskData]);
+  inputCheckBox.checked = task.getCheckboxValue();
+  inputValue.style.textDecoration = task.getCheckboxValue() ? "line-through" : "none";
   
   const inputImportantValue = taskId.querySelector(".markImportantTask");
   if (inputImportantValue) {
-    inputImportantValue.textContent = todoData[taskData].important ? "!" : "";
+    inputImportantValue.textContent = task.getImportantValue() ? "!" : "";
   }
   const inputUserValue = taskId.querySelector(".userInputValue");
-  inputUserValue.value = todoData[taskData].text;
+  inputUserValue.value = task.getInputValue();
 };

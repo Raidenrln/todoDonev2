@@ -1,13 +1,12 @@
 import { Task } from "../class/todoClass.js";
-import { todoData } from "../data/data.js";
-import { savingTask } from "../data/save.js";
+import { todoManager } from "../class/todoManager.js";
 import { updateOneTask } from "../utils/update.js";
 import { deleteTask } from "./delete.js";
 
 export function editModalShow(id) {
   const container = document.querySelector(".overlayContainer");
-  const targetTaskId = todoData.findIndex(task => task.id == id);
-  const taskData = new Task(todoData[targetTaskId]);
+  const targetTaskId = todoManager.tasks.find(task => task.id == id);
+  const taskData = new Task(targetTaskId);
   console.log(taskData);
 
   const taskHTML = `
@@ -74,17 +73,23 @@ export function editModalShow(id) {
     const mark = taskContent.querySelector(".markImportant");
     if (mark) {
       mark.textContent = ImportantBtn.checked ? "!" : "";
+      todoManager.updateTask(currentTaskId, {
+        important: ImportantBtn.checked
+      });
+      console.log(todoManager.tasks);
       updateOneTask(currentTaskId);
     }
   });
 
   saveBtn.addEventListener("click", () => {
-    todoData[targetTaskId].texy = inputValue.value;
-    todoData[targetTaskId].about = textArea.value;
-    todoData[targetTaskId].isDone = checkboxBtn.checked;
-    todoData[targetTaskId].important = ImportantBtn.checked;
-
-    savingTask(currentTaskId);
+    todoManager.updateTask(currentTaskId, {
+    text: inputValue.value,
+    about: textArea.value,
+    isDone: checkboxBtn.checked,
+    important: ImportantBtn.checked
+    })
+    console.log(todoManager.tasks);
+    todoManager.saveToStorage();
     updateOneTask(currentTaskId);
 
     container.style.display = "none";

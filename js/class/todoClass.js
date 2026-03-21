@@ -3,7 +3,7 @@ export class Task {
     this.id = data.id
     this.important = data.important
     this.isDone = data.isDone
-    this.inputValue = data.text
+    this.text = data.text
     this.about = data.about
   }
   getTaskID() {
@@ -16,7 +16,7 @@ export class Task {
     return this.isDone;
   }
   getInputValue() {
-    return this.inputValue;
+    return this.text;
   }
   getInputAboutValue() {
     return this.about;

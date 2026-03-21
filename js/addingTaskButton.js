@@ -1,21 +1,17 @@
-import { todoData } from "./data/data.js";
-import { savingTask } from "./data/save.js";
 import { editModalShow } from "./modal/editModal.js";
-// import { dupeFix } from "./utils/dupeFix.js";
-import { updateOneTask } from "./utils/update.js";
+import { todoManager } from "./class/todoManager.js";
 
 export function addTask() {
-  let todo = {};
-  const taskid = Date.now();
   const container = document.getElementById("task");
+  if (!container) return;
 
   const content = document.createElement("div");
-  content.className = `div class="flex items-center w-full h-12.5 taskContent bg-white rounded-lg overflow-hidden">`;
-  content.setAttribute("data-task", taskid);
+  content.className = "flex items-center w-full h-12.5 taskContent bg-white rounded-lg overflow-hidden";
+  
   content.innerHTML = `
     <div class="custom-checkbox-content px-3">
       <label class="custom-checkbox flex items-center">
-        <input class="checkbox" type="checkbox" class="w-5 h-5">
+        <input type="checkbox" class="checkbox w-5 h-5" disabled>
         <span></span>
       </label>
     </div>
@@ -28,33 +24,30 @@ export function addTask() {
   `;
   container.appendChild(content);
 
-  const targetTaskInput = content.querySelector("input[type='text']");
-  const TargetTaskSave = content.querySelector(".save");
+  const targetTaskInput = content.querySelector(".userInputValue");
+  const targetTaskSave = content.querySelector(".save");
   const targetCheckBox = content.querySelector(".checkbox");
 
-  targetCheckBox.disabled = true;
-  TargetTaskSave.addEventListener("click", () => {
-    const targetTaskValue = targetTaskInput.value;
-    targetCheckBox.disabled = false;
-    
-    if (TargetTaskSave.textContent.includes("Save")) {
-      TargetTaskSave.textContent = "Edit";
-      todo = {
-        id: taskid,
-        text: targetTaskValue,
-        isDone: false,
-        about: "",
-        important: false
-      };
-    targetCheckBox.addEventListener("change", () => {
-      const idFromAttribute = content.getAttribute("data-task");
-      const taskIndex = todoData.findIndex(task => task.id == idFromAttribute);
-      todoData[taskIndex].isDone = targetCheckBox.checked;
-      updateOneTask(idFromAttribute);
-});
-      todoData.push(todo);
-      savingTask(taskid);
+  // Listener for Checkbox
+  targetCheckBox.addEventListener("change", () => {
+    const currentId = content.getAttribute("data-task");
+    if (currentId) {
+      todoManager.updateTask(currentId, { isDone: targetCheckBox.checked });
+    }
+  });
+
+  // Listener for Save/Edit Button
+  targetTaskSave.addEventListener("click", () => {
+    const isSaving = targetTaskSave.textContent.trim() === "Save";
+
+    if (isSaving) {
+      const newTask = todoManager.addNewTask(targetTaskInput.value, "");
+      content.setAttribute("data-task", newTask.id);
+      targetTaskSave.textContent = "Edit";
+      targetCheckBox.disabled = false;
       targetTaskInput.disabled = true;
+      console.log(todoManager);
+      
     } else {
       const idFromAttribute = content.getAttribute("data-task");
       editModalShow(idFromAttribute);
